@@ -1,10 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.dshliazhko.android.test22">
-
+    package="com.dshliazhko.android.test22"
+    android:installLocation="internalOnly">
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE"></uses-permission>
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"></uses-permission>
+    <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED"></uses-permission>
+    <uses-permission android:name="android.permission.QUICKBOOT_POWERON" />
 
 
     <application
@@ -17,6 +19,12 @@
         android:theme="@style/Theme.Android2">
         <service android:name=".MyService"></service>
         <receiver android:name=".MyBroadcast"></receiver>
+        <receiver android:name=".ReceiverBootComplete">
+            <intent-filter>
+                <action android:name="android.intent.action.BOOT_COMPLETED>"></action>
+                <category android:name="android.intent.category.DEFAULT" />
+            </intent-filter>
+        </receiver>
         <activity android:name=".MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

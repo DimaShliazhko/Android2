@@ -16,7 +16,10 @@ public class MainActivity extends AppCompatActivity implements Contract.ViewActi
     private Fragment2 fragment2;
     private FragmentAddContact fragmentAddContact;
     private FragmentTransaction fragmentTransaction;
-    private Intent intent;    private MyBroadcast myBroadcast;
+    private Intent intent;
+
+    private MyBroadcast myBroadcast;
+    private  ReceiverBootComplete receiverBootComplete;
 
     private ImageButton imageButton;
 
@@ -26,6 +29,7 @@ public class MainActivity extends AppCompatActivity implements Contract.ViewActi
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        startService(new Intent(this,MyService.class));
         fragment2 = new Fragment2();
         fragmentAddContact = new FragmentAddContact();
 
@@ -86,5 +90,11 @@ public class MainActivity extends AppCompatActivity implements Contract.ViewActi
         startActivity(intent);
     }
 
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        Log.d("Log","önDestroy");
+    }
 
 }

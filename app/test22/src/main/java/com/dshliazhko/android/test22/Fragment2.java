@@ -84,7 +84,7 @@ public class Fragment2 extends Fragment {
             @Override
             public void onClick(View view) {
 
-                getActivity().startService(new Intent(getContext(),MyService.class));
+             //   getActivity().startService(new Intent(getContext(),MyService.class));
                 presenter.clickAddButton(contactAdapter);
 
             }

@@ -22,4 +22,8 @@ public class MyBroadcast extends BroadcastReceiver {
 
 
     }
+
+    public MyBroadcast() {
+        super();
+    }
 }
