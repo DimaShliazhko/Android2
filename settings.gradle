@@ -1,3 +1,5 @@
+include ':app:retrofit'
+include ':app:livadata'
 include ':app:test22'
 include ':app'
 rootProject.name = "Android2"
