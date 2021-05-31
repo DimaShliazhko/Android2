@@ -47,27 +47,8 @@ public class MainActivity extends AppCompatActivity {
                 getWeather(getButtonText);
             }
         });
-        //  PostsAdapter adapter = new PostsAdapter(weathers);
-        // recyclerView.setAdapter(adapter);
+
         getWeather(getButtonText);
-/*
-        App.getApi().getCurentWeather("Цитатник Рунета").enqueue(new Callback<List<ModelWeather>>() {
-            @Override
-            public void onResponse(Call<List<PostModel>> call, Response<List<PostModel>> response) {
-                posts.addAll(response.body());
-                recyclerView.getAdapter().notifyDataSetChanged();
-            }
-
-            @Override
-            public void onFailure(Call<List<PostModel>> call, Throwable t) {
-                Toast.makeText(MainActivity.this, "An error occurred during networking", Toast.LENGTH_SHORT).show();
-
-            }
-        });
-        */
-        //   App.getApi().getCurentWeather("Petersbur","like","01f7b7cdf0991c3d27fed9f5167a8ecb").enqueue(new Callback<List<ModelWeather>>() {
-
-
     }
 
 
@@ -79,11 +60,11 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onResponse(Call<ModelWeather> call, Response<ModelWeather> response) {
                 if (response.body() != null) {
-//                    weathers.addAll(  response.body().getList()  );
+                    //weathers.addAll(  response.body().getList()  );
 
                     Log.d("Dima", "result " + response.body().getList().toString());
 
-                    recyclerView.getAdapter().notifyDataSetChanged();
+                 //   recyclerView.getAdapter().notifyDataSetChanged();
 
 
                     //  response.body().getList().get
@@ -93,7 +74,8 @@ public class MainActivity extends AppCompatActivity {
                     Log.d("Dima", "name = " + response.body().getList().get(1).main.getTemp());
                     Log.d("Dima", "name = " + response.body().getList().get(1).dt_txt);
                     Log.d("Dima", "name = " + response.body().getList().get(1).weather.get(0).description);
-
+                    PostsAdapter adapter = new PostsAdapter(response.body().getList());
+                    recyclerView.setAdapter(adapter);
 
                 } else {
                     Toast.makeText(MainActivity.this, "NULL", Toast.LENGTH_SHORT).show();

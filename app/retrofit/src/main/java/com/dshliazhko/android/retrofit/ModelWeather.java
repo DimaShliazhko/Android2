@@ -46,7 +46,29 @@ class Lists {
     @Expose
     public String dt_txt;
 
+    public Mains getMain() {
+        return main;
+    }
 
+    public void setMain(Mains main) {
+        this.main = main;
+    }
+
+    public List<Weathers> getWeather() {
+        return weather;
+    }
+
+    public void setWeather(List<Weathers> weather) {
+        this.weather = weather;
+    }
+
+    public String getDt_txt() {
+        return dt_txt;
+    }
+
+    public void setDt_txt(String dt_txt) {
+        this.dt_txt = dt_txt;
+    }
 }
 
 class Mains {
@@ -54,9 +76,9 @@ class Mains {
     @Expose
     public Double temp;
 
-    public Double getTemp() {
+    public Integer getTemp() {
 
-        return temp - (273.15);
+        return (int) (temp - (273.15));
     }
 
     public void setTemp(Double temp) {
@@ -68,5 +90,11 @@ class Weathers {
     @Expose
     public String description;
 
+    public String getDescription() {
+        return description;
+    }
 
+    public void setDescription(String description) {
+        this.description = description;
+    }
 }
