@@ -1,32 +1,43 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout android:padding="5dp"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+   android:id="@+id/viewMainPost"
+
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto">
+    android:padding="5dp"
+    android:background="@color/gray"
+
+    >
 
     <TextView
         android:id="@+id/viewdate"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
 
-         />
+        />
 
+    <ImageView
+        android:id="@+id/viewImagine"
+        android:layout_width="50sp"
+        android:layout_height="50sp"
+        android:src="@color/black"
+        app:layout_constraintRight_toLeftOf="@+id/viewtemp"
+        app:layout_constraintTop_toTopOf="parent"></ImageView>
 
     <TextView
         android:id="@+id/viewtemp"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintRight_toRightOf="parent"
-        />
+        app:layout_constraintTop_toTopOf="parent" />
+
     <TextView
         android:id="@+id/viewdeskr"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-      app:layout_constraintTop_toBottomOf="@+id/viewdate"
-       app:layout_constraintLeft_toLeftOf="parent"
-        />
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/viewdate" />
 </androidx.constraintlayout.widget.ConstraintLayout>
