@@ -6,27 +6,50 @@
     android:layout_height="match_parent"
     tools:context=".MainActivity">
 
-   <EditText
-       android:id="@+id/viewEditText1"
-       android:layout_width="match_parent"
-       android:layout_height="wrap_content"
-       app:layout_constraintTop_toTopOf="parent"></EditText>
+    <EditText
+        android:id="@+id/viewEditText1"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toTopOf="parent"></EditText>
+
     <EditText
         android:id="@+id/viewEditText2"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         app:layout_constraintTop_toBottomOf="@+id/viewEditText1"></EditText>
+
     <TextView
         android:id="@+id/viewText1"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         app:layout_constraintTop_toBottomOf="@+id/viewEditText2"></TextView>
+
     <Button
         android:id="@+id/viewButton"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         app:layout_constraintTop_toBottomOf="@+id/viewText1"></Button>
 
+    <FrameLayout
+        android:id="@+id/viewConteiner1"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        app:layout_constraintBottom_toTopOf="@+id/viewConteiner2"
+        app:layout_constraintTop_toBottomOf="@id/viewButton">
 
+
+
+    </FrameLayout>
+
+    <FrameLayout
+        android:id="@+id/viewConteiner2"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/viewConteiner1">
+
+
+
+    </FrameLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>
