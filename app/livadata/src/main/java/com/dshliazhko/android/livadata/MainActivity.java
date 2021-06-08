@@ -14,6 +14,7 @@ import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProviders;
 
 public class MainActivity extends AppCompatActivity {
+    FragmentTransaction transaction;
     private EditText editText1;
     private EditText editText2;
     private Button button;
@@ -21,7 +22,7 @@ public class MainActivity extends AppCompatActivity {
     private MyViewModel myViewModel;
     private Fragment fragment1;
     private Fragment fragment2;
-    FragmentTransaction transaction;
+    private FragmentViewModel  fragmentViewModel;
     // private SharedPreferences preferences;
 
     @Override
@@ -33,11 +34,17 @@ public class MainActivity extends AppCompatActivity {
         button = findViewById(R.id.viewButton);
         textView = findViewById(R.id.viewText1);
         fragment1 = new Fragment1();
+        fragment2 = new Fragment2();
         transaction = getSupportFragmentManager().beginTransaction().add(R.id.viewConteiner1, fragment1);
+        transaction.commit();
+        transaction = getSupportFragmentManager().beginTransaction().add(R.id.viewConteiner2, fragment2);
         transaction.commit();
 
 
-                myViewModel = ViewModelProviders.of(this).get(MyViewModel.class);
+
+
+
+        myViewModel = ViewModelProviders.of(this).get(MyViewModel.class);
         createModel();
         button.setOnClickListener(new View.OnClickListener() {
             @Override
