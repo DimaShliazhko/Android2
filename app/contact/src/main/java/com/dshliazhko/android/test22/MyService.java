@@ -20,6 +20,7 @@ public class MyService extends Service {
         Log.d("Log", "служба создана");
         mediaPlayer = MediaPlayer.create(this, R.raw.mp3);
         mediaPlayer.setLooping(false);
+        Toast.makeText(getApplication(),"time",Toast.LENGTH_LONG).show();
     }
 
     @Nullable

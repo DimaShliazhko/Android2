@@ -12,9 +12,15 @@
           <set>
             <option value="$PROJECT_DIR$" />
             <option value="$PROJECT_DIR$/app" />
+            <option value="$PROJECT_DIR$/app/alarm" />
+            <option value="$PROJECT_DIR$/app/contact" />
             <option value="$PROJECT_DIR$/app/livadata" />
             <option value="$PROJECT_DIR$/app/retrofit" />
+            <option value="$PROJECT_DIR$/app/retrofit/service" />
+            <option value="$PROJECT_DIR$/app/rx" />
+            <option value="$PROJECT_DIR$/app/service" />
             <option value="$PROJECT_DIR$/app/test22" />
+            <option value="$PROJECT_DIR$/app/test22/rx" />
           </set>
         </option>
         <option name="resolveModulePerSourceSet" value="false" />

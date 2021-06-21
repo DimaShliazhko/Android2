@@ -1,5 +1,15 @@
+include ':app:alarm'
+include ':service'
+include ':service'
+include ':rx'
+include ':contact'
+include ':app:retrofit:service'
+include ':app:test22:rx'
 include ':app:retrofit'
 include ':app:livadata'
 include ':app:test22'
 include ':app'
+project(':contact').projectDir = new File(rootDir, 'app/contact/')
+project(':rx').projectDir = new File(rootDir, 'app/rx/')
+project(':service').projectDir = new File(rootDir, 'app/service/')
 rootProject.name = "Android2"
