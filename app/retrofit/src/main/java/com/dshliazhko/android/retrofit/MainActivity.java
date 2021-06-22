@@ -34,13 +34,37 @@ public class MainActivity extends AppCompatActivity {
 
     RecyclerView recyclerView;
     List<List> weathers;
+    Callback<ModelWeather> modelWeatherCallback = new Callback<ModelWeather>() {
+        @Override
+        public void onResponse(Call<ModelWeather> call, Response<ModelWeather> response) {
+            if (response.body() != null) {
+
+                Log.d("Dima", "result " + response.body().getList().toString());
+                Log.d("Dima", "list = " + response.body().getList().size());
+                Log.d("Dima", "name = " + response.body().getList().get(1).main.getTemp());
+                Log.d("Dima", "name = " + response.body().getList().get(1).dt_txt);
+                Log.d("Dima", "name = " + response.body().getList().get(1).weather.get(0).description);
+                PostsAdapter adapter = new PostsAdapter(response.body().getList());
+                recyclerView.setAdapter(adapter);
+
+            } else {
+                Toast.makeText(MainActivity.this, "NULL", Toast.LENGTH_SHORT).show();
+            }
+        }
+
+        @Override
+        public void onFailure(Call<ModelWeather> call, Throwable t) {
+            Toast.makeText(MainActivity.this, "Данные не получены" + t, Toast.LENGTH_SHORT).show();
+            Log.d("Dima", "Error  " + t);
+
+        }
+    };
     private EditText editText;
     private Button button;
     private String getButtonText;
     private LocationManager locationManager;
     private TextView textView;
     private Button buttonSettings;
-
     private LocationListener locationListener = new LocationListener() {
         @Override
         public void onLocationChanged(Location location) {
@@ -48,6 +72,7 @@ public class MainActivity extends AppCompatActivity {
 
             if (location != null) {
                 showLocation(location);
+
             } else {
                 textView.setText("location");
             }
@@ -99,7 +124,7 @@ public class MainActivity extends AppCompatActivity {
         recyclerView.setLayoutManager(layoutManager);
         getButtonText = editText.getText().toString();
         locationManager = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
-        // checkEnabled();
+        checkEnabled();
 
 
         buttonSettings.setOnClickListener(new View.OnClickListener() {
@@ -116,33 +141,40 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-        getWeather(getButtonText);
+        if (locationManager.isProviderEnabled(LocationManager.GPS_PROVIDER) == true ||
+                locationManager.isProviderEnabled(LocationManager.NETWORK_PROVIDER) == true) {
+            if (ContextCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED || ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+                Toast toast = Toast.makeText(getApplicationContext(), "РАзрешения не предоставлены", Toast.LENGTH_LONG);
+                toast.show();
+                ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.ACCESS_FINE_LOCATION, Manifest.permission.ACCESS_COARSE_LOCATION},
+                        1);
+                return;
+            }
+            locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 1000 * 10, 2, locationListener);
+            locationManager.requestLocationUpdates(LocationManager.NETWORK_PROVIDER, 1000 * 10, 2, locationListener);
+
+        } else {
+
+            getWeather(getButtonText);
+        }
+
+
     }
 
     @Override
     protected void onResume() {
         super.onResume();
-        checkEnabled();
-        if (ContextCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
-            Toast toast = Toast.makeText(getApplicationContext(), "РАзрешения не предоставлены", Toast.LENGTH_LONG);
-            toast.show();
-            ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.ACCESS_FINE_LOCATION, Manifest.permission.ACCESS_COARSE_LOCATION},
-                    1);
-            return;
-        }
-        locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 1000 * 10, 2, locationListener);
-        locationManager.requestLocationUpdates(LocationManager.NETWORK_PROVIDER, 1000 * 10, 2, locationListener);
 
 
     }
 
     private void checkEnabled() {
-        textView.setText("Enabled: "
+        textView.setText("Enabled: GPS "
                 + locationManager
-                .isProviderEnabled(LocationManager.GPS_PROVIDER));
-        textView.setText("Enabled: "
+                .isProviderEnabled(LocationManager.GPS_PROVIDER) + " Enabled: NETWORK"
                 + locationManager
                 .isProviderEnabled(LocationManager.NETWORK_PROVIDER));
+
 
     }
 
@@ -153,8 +185,11 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void showLocation(Location location) {
+
         textView.setText(formatLocation(location));
+        getWeather(location.getLatitude(), location.getLongitude());
     }
+
 
     private String formatLocation(Location location) {
         if (location == null)
@@ -167,40 +202,13 @@ public class MainActivity extends AppCompatActivity {
 
     public void getWeather(String s) {
 
+        App.getApi().getMainWeather(s).enqueue(modelWeatherCallback);
 
-        App.getApi().getMainWeather(s).enqueue(new Callback<ModelWeather>() {
-
-            @Override
-            public void onResponse(Call<ModelWeather> call, Response<ModelWeather> response) {
-                if (response.body() != null) {
-                    //weathers.addAll(  response.body().getList()  );
-
-                    Log.d("Dima", "result " + response.body().getList().toString());
-
-                    //   recyclerView.getAdapter().notifyDataSetChanged();
-
-
-                    //  response.body().getList().get
-                    //    weathers.addAll(response.body());
-                    //  Log.d("Dima", "name = "+ response.body().getMessage());
-                    Log.d("Dima", "list = " + response.body().getList().size());
-                    Log.d("Dima", "name = " + response.body().getList().get(1).main.getTemp());
-                    Log.d("Dima", "name = " + response.body().getList().get(1).dt_txt);
-                    Log.d("Dima", "name = " + response.body().getList().get(1).weather.get(0).description);
-                    PostsAdapter adapter = new PostsAdapter(response.body().getList());
-                    recyclerView.setAdapter(adapter);
-
-                } else {
-                    Toast.makeText(MainActivity.this, "NULL", Toast.LENGTH_SHORT).show();
-                }
-            }
-
-            @Override
-            public void onFailure(Call<ModelWeather> call, Throwable t) {
-                Toast.makeText(MainActivity.this, "An error occurred during networking" + t, Toast.LENGTH_SHORT).show();
-                Log.d("Dima", "Error  " + t);
-
-            }
-        });
     }
+
+    public void getWeather(double lat, double lon) {
+        App.getApi().getLocalWeather(lat, lon).enqueue(modelWeatherCallback);
+    }
+
+
 }

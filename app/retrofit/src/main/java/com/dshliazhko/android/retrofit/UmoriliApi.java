@@ -21,5 +21,8 @@ public interface UmoriliApi {
     @GET("/data/2.5/forecast?&appid=85e2768b27d91810236dfe385e51dd6b")
     Call<ModelWeather> getMainWeather(@Query("q") String s);
 
+    @GET("/data/2.5/forecast?&appid=85e2768b27d91810236dfe385e51dd6b")
+    Call<ModelWeather> getLocalWeather(@Query("lat") double lat,@Query("lon") double lon);
+
 }
 
