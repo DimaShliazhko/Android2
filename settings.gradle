@@ -1,3 +1,5 @@
+include ':app:dagger'
+include ':app:kotlin'
 include ':app:alarm'
 include ':service'
 include ':service'

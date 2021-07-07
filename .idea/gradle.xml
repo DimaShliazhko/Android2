@@ -14,6 +14,8 @@
             <option value="$PROJECT_DIR$/app" />
             <option value="$PROJECT_DIR$/app/alarm" />
             <option value="$PROJECT_DIR$/app/contact" />
+            <option value="$PROJECT_DIR$/app/dagger" />
+            <option value="$PROJECT_DIR$/app/kotlin" />
             <option value="$PROJECT_DIR$/app/livadata" />
             <option value="$PROJECT_DIR$/app/retrofit" />
             <option value="$PROJECT_DIR$/app/retrofit/service" />
